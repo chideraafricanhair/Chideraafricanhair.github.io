@@ -1,18 +1,3 @@
-
-const menu = document.querySelector('.menu');
-const nav = document.querySelector('.nav nav');
-menu?.addEventListener('click', () => nav.classList.toggle('open'));
-document.querySelectorAll('.nav nav a').forEach(a => a.addEventListener('click',()=>nav.classList.remove('open')));
-document.getElementById('year').textContent = new Date().getFullYear();
-
-document.querySelectorAll('.gallery img').forEach(img=>{
-  img.addEventListener('click',()=>{
-    const overlay=document.createElement('div');
-    overlay.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.94);display:grid;place-items:center;z-index:100;padding:20px;cursor:zoom-out';
-    const clone=img.cloneNode();
-    clone.style.cssText='max-width:95vw;max-height:92vh;object-fit:contain;box-shadow:0 0 0 1px #c8a24c';
-    overlay.appendChild(clone);
-    overlay.addEventListener('click',()=>overlay.remove());
-    document.body.appendChild(overlay);
-  });
-});
+const menu=document.querySelector('.menu-toggle');const nav=document.querySelector('#nav');menu?.addEventListener('click',()=>{const open=nav.classList.toggle('open');menu.setAttribute('aria-expanded',String(open))});nav?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+const dialog=document.querySelector('#lightbox');const dialogImg=dialog.querySelector('img');document.querySelectorAll('[data-src]').forEach(btn=>btn.addEventListener('click',()=>{dialogImg.src=btn.dataset.src;dialog.showModal()}));dialog.querySelector('.close-lightbox').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&dialog.open)dialog.close()});
+document.querySelector('#year').textContent=new Date().getFullYear();
